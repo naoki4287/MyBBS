@@ -1,0 +1,9 @@
+#postBtn {
+  position: absolute;
+  bottom: 16%;
+  right: 8%;
+}
+
+#mask {
+  background: rgba(0, 0, 0, 0.4);
+}
