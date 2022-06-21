@@ -20,14 +20,12 @@
         <script src="https://kit.fontawesome.com/9fcd6d26d6.js" crossorigin="anonymous"></script>
 
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased bg-red-100">
+            {{-- @include('layouts.navigation') --}}
 
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
-        </div>
     </body>
 </html>
