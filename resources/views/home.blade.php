@@ -1,18 +1,23 @@
 <x-app-layout>
   <div>
-    {{-- 一覧表示機能 --}}
-    <span class="ml-4">投稿者</span> <span class="ml-4">/</span> <span class="ml-4">投稿日時</span>
-    <div class="border-b-2 border-gray-700 ml-4">本文</div>
+    <div class="text-center text-3xl my-12">MyBBS</div>
+    <div class="">
+      @foreach ($comments as $comment)
+      <div class="mt-2 w-full">
+        <span class="ml-4">{{ $comment['name'] }}</span><span class="ml-4 float-right">{{ $comment['created_at']}}</span>
+        <div class="border-b-2 border-gray-700 mt-1 ml-4">{{ $comment['comment']}}</div>
+      </div>
+      @endforeach
+    </div>
     
-    <div id="modal" class="modal hidde w-full bg-gray-800  rounded-lg absolute z-10 text-center">
-      {{-- 投稿機能 --}}
+    <div id="modal" class="modal hidden w-full h-full bg-gray-800 z-10 text-center">
       <form action="post" method="POST">
-        <input type="text" name="name" placeholder="名前" autofocus autocomplete="off" class="my-4 bg-gray-700 rounded-md text-white outline-none"><br>
-        <textarea name="post" cols="60" rows="10" placeholder="いま暇な人いる？" class="my-4 bg-gray-700 text-white rounded-md    outline-none"></textarea><br>
+        @csrf
+        <input type="text" name="name" placeholder="名前" autofocus autocomplete="off" class="w-8/12 mt-8 mb-4 bg-gray-700 rounded-md text-white outline-none"><br>
+        <textarea name="comment" cols="" rows="10" placeholder="いま暇な人いる？" class="w-8/12 my-4 bg-gray-700 text-white rounded-md outline-none"></textarea>
         <div class="space-x-48">
-          <button type="button" class="my-4 p-2 text-white rounded-md">キャンセル</button>
+          <button type="button" id="cancelBtn" class="my-4 p-2 text-white rounded-md  hover:bg-gray-600">キャンセル</button>
           <button type="submit" class="my-4 p-2 text-white rounded-md bg-red-700">投稿する</button>
-
         </div>
       </form>
     </div>
