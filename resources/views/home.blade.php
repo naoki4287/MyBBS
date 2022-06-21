@@ -4,11 +4,13 @@
     <div class="">
       @foreach ($comments as $comment)
       <div class="mt-2 w-full">
-        <a href="/edit/{{ $comment->id }}">
-          <span class="ml-4">{{ $comment->name }}</span><span class="ml-4 float-right">{{ $comment->created_at }}</span>
-         
-          <div class="border-b-2 border-gray-700 mt-1 ml-4">{{ $comment->comment }}</div>
-        </a>
+        
+          <span class="ml-4">{{ $comment->name }}</span>
+          <span class="ml-4 float-right">{{ $comment->created_at }}</span>
+          <div class="inline-block ml-4  float-right">返信する</div>
+          <div class="inline-block ml-4  float-right"><a href="/edit/{{ $comment->id }}">編集する</a></div>
+          <div class="ml-4  border-b-2 border-gray-700 mt-1">{{ $comment->comment }}</div>
+       
       </div>
       @endforeach
       <div class="mt-12 flex justify-center">
