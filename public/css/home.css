@@ -1,6 +1,6 @@
 #postBtn {
   position: absolute;
-  bottom: 16%;
+  bottom: 9%;
   right: 8%;
 }
 
@@ -11,6 +11,7 @@
   right: 0;
   margin: auto;
 }
+
 
 
 #mask {
