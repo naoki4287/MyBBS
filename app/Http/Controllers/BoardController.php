@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BoardController extends Controller
 {
@@ -19,7 +18,6 @@ class BoardController extends Controller
     $comments = comment::select('comments.*')
       ->orderBy($sort, 'desc')
       ->paginate(10);
-    // dd($comments);
 
     return view('home', compact('comments', 'sort'));
   }
@@ -29,6 +27,25 @@ class BoardController extends Controller
     $comment = $request->only(['name', 'comment']);
     comment::create(['name' =>  $comment['name'], 'comment' => $comment['comment']]);
 
+    return redirect()->route('home');
+  }
+
+  public function edit($id) 
+  {
+    $comment = comment::find($id);
+    return view('edit', compact('comment'));
+  }
+
+  public function update(Request $request)
+  {
+    $comment = comment::find($request->commentID);
+    $comment->fill($request->all())->save();
+    return redirect()->route('home');
+  }
+
+  public function delete(Request $request)
+  {
+    comment::find($request->commentID)->delete();
     return redirect()->route('home');
   }
 }
