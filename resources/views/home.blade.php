@@ -6,6 +6,7 @@
       <div class="mt-2 w-full">
         <a href="/edit/{{ $comment->id }}">
           <span class="ml-4">{{ $comment->name }}</span><span class="ml-4 float-right">{{ $comment->created_at }}</span>
+         
           <div class="border-b-2 border-gray-700 mt-1 ml-4">{{ $comment->comment }}</div>
         </a>
       </div>

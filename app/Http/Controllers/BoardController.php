@@ -42,4 +42,10 @@ class BoardController extends Controller
     $comment->fill($request->all())->save();
     return redirect()->route('home');
   }
+
+  public function delete(Request $request)
+  {
+    comment::find($request->commentID)->delete();
+    return redirect()->route('home');
+  }
 }
