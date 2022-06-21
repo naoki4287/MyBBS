@@ -4,17 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BoardController extends Controller
 {
-  public function home()
+  public function home(Request $request)
   {
-    
-    $comments = comment::select('comments.*')
-      ->orderBy('created_at', 'DESC')
-      ->get();
+    if (!$request->sort) {
+      $sort = 'id';
+    } else {
+      $sort = $request->sort;
+    }
 
-    return view('home', compact('comments'));
+    $comments = comment::select('comments.*')
+      ->orderBy($sort, 'desc')
+      ->paginate(10);
+    // dd($comments);
+
+    return view('home', compact('comments', 'sort'));
   }
 
   public function post(Request $request)
