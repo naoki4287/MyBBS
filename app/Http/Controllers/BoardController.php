@@ -48,4 +48,9 @@ class BoardController extends Controller
     comment::find($request->commentID)->delete();
     return redirect()->route('home');
   }
+
+  public function reply()
+  {
+    return view('reply');
+  }
 }

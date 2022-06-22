@@ -19,5 +19,6 @@ Route::post('/post', [BoardController::class, 'post'])->name('post');
 Route::get('/edit/{id}', [BoardController::class, 'edit'])->name('edit');
 Route::post('/update', [BoardController::class, 'update'])->name('update');
 Route::post('/delete', [BoardController::class, 'delete'])->name('delete');
+Route::get('/reply/{id}', [BoardController::class, 'reply'])->name('reply');
 
 require __DIR__.'/auth.php';
