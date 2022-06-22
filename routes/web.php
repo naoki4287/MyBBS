@@ -20,5 +20,7 @@ Route::get('/edit/{id}', [BoardController::class, 'edit'])->name('edit');
 Route::post('/update', [BoardController::class, 'update'])->name('update');
 Route::post('/delete', [BoardController::class, 'delete'])->name('delete');
 Route::get('/reply/{id}', [BoardController::class, 'reply'])->name('reply');
+Route::post('/response', [BoardController::class, 'response'])->name('response');
+Route::get('/replied/{id}', [BoardController::class, 'replied'])->name('replied');
 
 require __DIR__.'/auth.php';

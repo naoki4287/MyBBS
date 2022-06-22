@@ -15,6 +15,7 @@ return new class extends Migration
   {
     Schema::create('replies', function (Blueprint $table) {
       $table->unsignedBigInteger('id', true);
+      $table->char('name', 64);
       $table->text('reply');
       $table->unsignedBigInteger('comment_id');
       $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
