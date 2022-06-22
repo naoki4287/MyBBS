@@ -20,7 +20,7 @@
         <script src="https://kit.fontawesome.com/9fcd6d26d6.js" crossorigin="anonymous"></script>
 
     </head>
-    <body class="font-sans antialiased bg-red-100">
+    <body class="font-sans antialiased bg-gray-300">
             {{-- @include('layouts.navigation') --}}
 
             <!-- Page Content -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use App\Models\reply;
 use Illuminate\Http\Request;
 
 class BoardController extends Controller
@@ -15,11 +16,15 @@ class BoardController extends Controller
       $sort = $request->sort;
     }
 
-    $comments = comment::select('comments.*')
+    $comments = comment::select('comments.id', 'comments.name', 'comments.comment', 'comments.created_at')
       ->orderBy($sort, 'desc')
       ->paginate(10);
 
-    return view('home', compact('comments', 'sort'));
+    $replies = comment::select('replies.name', 'replies.reply', 'replies.comment_id')
+      ->join('replies', 'comments.id', '=', 'replies.comment_id')
+      ->get();
+
+    return view('home', compact('comments', 'replies', 'sort'));
   }
 
   public function post(Request $request)
@@ -30,7 +35,7 @@ class BoardController extends Controller
     return redirect()->route('home');
   }
 
-  public function edit($id) 
+  public function edit($id)
   {
     $comment = comment::find($id);
     return view('edit', compact('comment'));
@@ -45,7 +50,35 @@ class BoardController extends Controller
 
   public function delete(Request $request)
   {
-    comment::find($request->commentID)->delete();
+    if ($request->confirmResult === "true") {
+      comment::find($request->commentID)->delete();
+    }
     return redirect()->route('home');
+  }
+
+  public function reply($id)
+  {
+    $comment = comment::find($id);
+    return view('reply', compact('comment'));
+  }
+
+  public function response(Request $request)
+  {
+    $reply = $request->only(['name', 'reply', 'comment_id']);
+    $comment = comment::find($request->commentID);
+    reply::create(['name' =>  $reply['name'], 'reply' => $reply['reply'], 'comment_id' => $comment['id']]);
+
+    return redirect()->route('home');
+  }
+
+  public function replied($id)
+  {
+    $comment = comment::find($id);
+    $replies = reply::select('replies.*')
+      ->where('comment_id', '=', $comment['id'])
+      ->orderBy('created_at', 'ASC')
+      ->get();
+
+      return view('replied', compact('comment', 'replies'));
   }
 }
