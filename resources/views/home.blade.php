@@ -7,9 +7,9 @@
         
           <span class="ml-4">{{ $comment->name }}</span>
           <span class="ml-4 float-right">{{ $comment->created_at }}</span>
-          <div class="inline-block ml-4  float-right">返信する</div>
-          <div class="inline-block ml-4  float-right"><a href="/edit/{{ $comment->id }}">編集する</a></div>
-          <div class="ml-4  border-b-2 border-gray-700 mt-1">{{ $comment->comment }}</div>
+          <div class="inline-block ml-4  float-right"></div>
+          <div class="inline-block ml-4  float-right"><a class="hover:text-red-700 p-1" href="/edit/{{ $comment->id }}">編集する</a></div>
+          <a class="" href="/reply/{{ $comment->id }}"><div class="ml-4  border-b-2 border-gray-700 mt-1">{{ $comment->comment }}</div></a>
        
       </div>
       @endforeach
@@ -21,7 +21,7 @@
     <div id="modal" class="modal hidden w-full h-full bg-gray-800 z-10 text-center">
       <form action="post" method="POST">
         @csrf
-        <input type="text" name="name" placeholder="名前" autofocus  autocomplete="off" class="w-8/12 mt-8 mb-4 bg-gray-700 rounded-md text-white outline-none"><br>
+        <input type="text" name="name" id="name" placeholder="名前" autofocus  autocomplete="off" class="w-8/12 mt-8 mb-4 bg-gray-700 rounded-md text-white outline-none"><br>
         <textarea name="comment" cols="" rows="10" placeholder="いま暇な人いる？" class="w-8/12 my-4 bg-gray-700 text-white rounded-md outline-none"></textarea>
         <div class="space-x-48">
           <button type="button" id="cancelBtn" class="my-4 p-2 text-white rounded-md  hover:bg-gray-600">キャンセル</button>
@@ -29,7 +29,6 @@
         </div>
       </form>
     </div>
-    <div id="mask" class="hidden fixed inset-0 z-0"></div>
     
     <div class="flex justify-end">
       <i id="postBtn" class="fas fa-4x fa-plus-circle text-gray-700  z-10"></i>
