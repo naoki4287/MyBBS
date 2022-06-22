@@ -1,7 +1,10 @@
 "use strict";
 
 const deleteBtn = document.getElementById("deleteBtn");
+const confirmResult = document.getElementById("confirmResult");
 
 deleteBtn.addEventListener("click", () => {
-    alert("本当に削除しますか？");
+    if (confirm("本当に削除しますか？")) {
+        confirmResult.value = true;
+    }
 });

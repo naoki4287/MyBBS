@@ -45,7 +45,9 @@ class BoardController extends Controller
 
   public function delete(Request $request)
   {
-    comment::find($request->commentID)->delete();
+    if ($request->confirmResult === "true") {
+      comment::find($request->commentID)->delete();
+    }
     return redirect()->route('home');
   }
 
