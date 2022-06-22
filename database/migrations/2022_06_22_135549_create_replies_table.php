@@ -13,14 +13,17 @@ return new class extends Migration
    */
   public function up()
   {
-    Schema::create('comments', function (Blueprint $table) {
+    Schema::create('replies', function (Blueprint $table) {
       $table->unsignedBigInteger('id', true);
-      $table->char('name', 64);
-      $table->text('comment');
+      $table->text('reply');
+      $table->unsignedBigInteger('comment_id');
       $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
       $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+      $table->foreign('comment_id')->references('id')->on('comments')->cascadeOnDelete()
+      ->cascadeOnUpdate();
     });
   }
+
   /**
    * Reverse the migrations.
    *
@@ -28,6 +31,6 @@ return new class extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('comments');
+    Schema::dropIfExists('replies');
   }
 };
