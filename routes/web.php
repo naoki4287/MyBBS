@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BoardController::class, 'home'])->name('home');
+Route::get('/comment', [BoardController::class, 'comment'])->name('comment');
 Route::post('/post', [BoardController::class, 'post'])->name('post');
 Route::get('/edit/{id}', [BoardController::class, 'edit'])->name('edit');
 Route::post('/update', [BoardController::class, 'update'])->name('update');
