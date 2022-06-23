@@ -17,26 +17,9 @@
       </div>
     </div>
     
-    <div id="modal" class="modal hidden w-full h-full bg-gray-800 z-10 text-center">
-      <form action="post" method="POST">
-        @csrf
-        <x-input name="name" id="name" autocomplete="off"></x-input><br>
-        <x-textarea  name="comment" placeholder="今暇な人いる？"></x-textarea>
-        <div class="space-x-48">
-          <x-a_back class="text-white">キャンセル</x-a_back>
-          <x-button class="bg-red-700 hover:bg-red-600">投稿する</x-button>
-        </div>
-      </form>
-    </div>
-    
     <div class="flex justify-end">
-      <i id="postBtn" class="fas fa-4x fa-plus-circle text-gray-700  z-10 cursor-pointer"></i>
+      <a href="/comment"><i id="postBtn" class="fas fa-4x fa-plus-circle text-gray-700 hover:text-gray-600 cursor-pointer"></i></a>
     </div>
     
   </div>
-  <script>
-    const comments = @json($comments);
-    const replies = @json($replies);
-  </script>
-  <script type="module" src="{{ asset('js/home.js') }}"></script>
 </x-app-layout>

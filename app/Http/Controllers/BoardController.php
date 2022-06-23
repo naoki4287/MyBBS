@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\comment;
 use App\Models\reply;
 use Illuminate\Http\Request;
@@ -27,7 +28,12 @@ class BoardController extends Controller
     return view('home', compact('comments', 'replies', 'sort'));
   }
 
-  public function post(Request $request)
+  public function comment()
+  {
+    return view('comment');
+  }
+
+  public function post(PostRequest $request)
   {
     $comment = $request->only(['name', 'comment']);
     comment::create(['name' =>  $comment['name'], 'comment' => $comment['comment']]);
@@ -42,7 +48,7 @@ class BoardController extends Controller
     return view('edit', compact('comment', 'reply'));
   }
 
-  public function update(Request $request)
+  public function update(PostRequest $request)
   {
     $comment = comment::find($request->commentID);
     $reply = reply::find($request->replyID);
@@ -70,7 +76,7 @@ class BoardController extends Controller
     return view('reply', compact('comment'));
   }
 
-  public function response(Request $request)
+  public function response(PostRequest $request)
   {
     $reply = $request->only(['name', 'reply', 'comment_id']);
     $comment = comment::find($request->commentID);
