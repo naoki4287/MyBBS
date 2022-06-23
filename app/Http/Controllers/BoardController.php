@@ -18,7 +18,7 @@ class BoardController extends Controller
 
     $comments = comment::select('comments.id', 'comments.name', 'comments.comment', 'comments.created_at')
       ->orderBy($sort, 'desc')
-      ->paginate(10);
+      ->paginate(3);
 
     $replies = comment::select('replies.name', 'replies.reply', 'replies.comment_id')
       ->join('replies', 'comments.id', '=', 'replies.comment_id')
@@ -38,20 +38,28 @@ class BoardController extends Controller
   public function edit($id)
   {
     $comment = comment::find($id);
-    return view('edit', compact('comment'));
+    $reply = reply::find($id);
+    return view('edit', compact('comment', 'reply'));
   }
 
   public function update(Request $request)
   {
     $comment = comment::find($request->commentID);
-    $comment->fill($request->all())->save();
+    $reply = reply::find($request->replyID);
+    if ($comment) {
+      $comment->fill($request->all())->save();
+    } else {
+      $reply->fill($request->all())->save();
+    }
     return redirect()->route('home');
   }
 
   public function delete(Request $request)
   {
-    if ($request->confirmResult === "true") {
+    if ($request->confirmResult === "true" && $request->commentID !== null) {
       comment::find($request->commentID)->delete();
+    } elseif ($request->confirmResult === "true" && $request->replyID !== null) {
+      reply::find($request->replyID)->delete();
     }
     return redirect()->route('home');
   }
@@ -79,6 +87,6 @@ class BoardController extends Controller
       ->orderBy('created_at', 'ASC')
       ->get();
 
-      return view('replied', compact('comment', 'replies'));
+    return view('replied', compact('comment', 'replies'));
   }
 }
