@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="modal h-full bg-gray-800 text-center">
+  <div class="body h-full bg-gray-800 text-center">
     <form action="post" method="POST" class="mt-12">
       @csrf
       @error('name')

@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="modal h-full bg-gray-800 text-center">
+  <div class="body h-full bg-gray-800 text-center">
     <div class="mt-12 ml-8 px-12 py-4 text-white border-2 border-gray-400 inline-block rounded-md">
       <div class="mb-2">{{ $comment['name'] }}</div>
       <div class="">{{ $comment['comment'] }}</div>

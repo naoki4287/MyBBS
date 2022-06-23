@@ -1,5 +1,5 @@
 <x-app-layout>
-  <div class="modal h-full bg-gray-800 text-center">
+  <div class="body h-full bg-gray-800 text-center">
     <div class="text-center text-3xl text-white mt-20">
       編集・削除
     </div>
