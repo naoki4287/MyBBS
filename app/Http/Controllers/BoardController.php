@@ -46,15 +46,20 @@ class BoardController extends Controller
   {
     $comment = comment::find($request->commentID);
     $reply = reply::find($request->replyID);
-    $comment->fill($request->all())->save();
-    $reply->fill($request->all())->save();
+    if ($comment) {
+      $comment->fill($request->all())->save();
+    } else {
+      $reply->fill($request->all())->save();
+    }
     return redirect()->route('home');
   }
 
   public function delete(Request $request)
   {
-    if ($request->confirmResult === "true") {
+    if ($request->confirmResult === "true" && $request->commentID !== null) {
       comment::find($request->commentID)->delete();
+    } elseif ($request->confirmResult === "true" && $request->replyID !== null) {
+      reply::find($request->replyID)->delete();
     }
     return redirect()->route('home');
   }
@@ -82,6 +87,6 @@ class BoardController extends Controller
       ->orderBy('created_at', 'ASC')
       ->get();
 
-      return view('replied', compact('comment', 'replies'));
+    return view('replied', compact('comment', 'replies'));
   }
 }

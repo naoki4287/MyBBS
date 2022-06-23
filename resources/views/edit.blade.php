@@ -6,15 +6,22 @@
 
     <form action="/delete" method="POST" class="float-right">
       @csrf
-       <input type="hidden" name="commentID" value="{{ $comment['id'] }}">
-       <input type="hidden" id="confirmResult" name="confirmResult" value="">
+      @if ($comment)
+      <input type="hidden" name="commentID" value="{{ $comment['id'] }}">
+      @else
+      <input type="hidden" name="replyID" value="{{ $reply['id'] }}">
+      @endif
+      <input type="hidden" id="confirmResult" name="confirmResult" value="">
       <button type="submit" id="deleteBtn" class="mr-12 p-2 text-white bg-red-700 rounded-md float-right">削除する</button>
     </form>
     
     <form class="text-center mt-32" action="{{ route('update') }}" method="POST">
       @csrf
+      @if ($comment)
       <input type="hidden" name="commentID" value="{{ $comment['id'] }}">
+      @else
       <input type="hidden" name="replyID" value="{{ $reply['id'] }}">
+      @endif
       {{-- @error('question')
       <div class="text-white text-center relative bottom-4">{{ $message }}</div>
       @enderror --}}
