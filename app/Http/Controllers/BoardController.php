@@ -18,7 +18,7 @@ class BoardController extends Controller
 
     $comments = comment::select('comments.id', 'comments.name', 'comments.comment', 'comments.created_at')
       ->orderBy($sort, 'desc')
-      ->paginate(10);
+      ->paginate(3);
 
     $replies = comment::select('replies.name', 'replies.reply', 'replies.comment_id')
       ->join('replies', 'comments.id', '=', 'replies.comment_id')

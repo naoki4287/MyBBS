@@ -11,3 +11,10 @@
   right: 0;
   margin: auto;
 }
+
+.link {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  right: 0;
+}

@@ -1,7 +1,7 @@
 <x-app-layout>
   <div>
     <div class="flex justify-end">
-      <a href="/" class="mt-8 mr-12 px-6 py-2 text-white rounded-md  bg-blue-600">戻る</a>
+      <a href="/" class="mt-8 mr-12 px-6 py-2 text-white rounded-md  bg-gray-700">戻る</a>
     </div>
     
       <div class="mt-8 w-full">

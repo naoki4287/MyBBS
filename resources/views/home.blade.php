@@ -12,7 +12,7 @@
         <a class="" href="/replied/{{ $comment->id }}"><div class="ml-4 border-b-2 border-gray-700 mt-1">{{ $comment->comment }}</div></a>
       </div>
       @endforeach
-      <div class="mt-12 flex justify-center">
+      <div class="link mt-12 flex justify-center">
         {{ $comments->appends(['sort' => $sort])->links('tailwind') }}
       </div>
     </div>
