@@ -38,13 +38,16 @@ class BoardController extends Controller
   public function edit($id)
   {
     $comment = comment::find($id);
-    return view('edit', compact('comment'));
+    $reply = reply::find($id);
+    return view('edit', compact('comment', 'reply'));
   }
 
   public function update(Request $request)
   {
     $comment = comment::find($request->commentID);
+    $reply = reply::find($request->replyID);
     $comment->fill($request->all())->save();
+    $reply->fill($request->all())->save();
     return redirect()->route('home');
   }
 
