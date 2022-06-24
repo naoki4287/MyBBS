@@ -16,7 +16,7 @@
     <div class="mt-2">
       <span class="mt-1 ml-4">{{ $reply['name'] }}</span>
       <span class="mx-8 float-right">{{ $reply->created_at }}</span>
-      <div class="inline-block ml-4  float-right"><a class="p-1" href="/edit/{{ $reply['id'] }}">編集・削除</a></div>
+      <div class="inline-block ml-4  float-right"><a class="p-1" href="/replyedit/{{ $reply['id'] }}">編集・削除</a></div>
 
       <div class="mt-1 ml-4 border-b-2 border-gray-700">{{ $reply['reply'] }}</div>      
     </div>

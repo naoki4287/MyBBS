@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class ResponseRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -13,12 +13,14 @@ class PostRequest extends FormRequest
    */
   public function authorize()
   {
-    if ($this->path() == 'post') {
+    if ($this->path() == 'response') {
       return true;
     } else {
       return false;
     }
   }
+
+
 
   /**
    * Get the validation rules that apply to the request.
@@ -29,7 +31,7 @@ class PostRequest extends FormRequest
   {
     return [
       'name' => 'required|max:64',
-      'comment' => 'required',
+      'reply' => 'required',
     ];
   }
 
@@ -38,7 +40,7 @@ class PostRequest extends FormRequest
     return [
       'name.required' => '名前は必ず入力してください',
       'name.max' => '名前は64字以内で入力してください',
-      'comment.required' => '投稿は必ず入力してください',
+      'reply.required' => '返信は必ず入力してください',
     ];
   }
 }

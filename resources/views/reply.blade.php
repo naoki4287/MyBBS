@@ -7,15 +7,18 @@
     
     <form action="/response" method="POST">
       @csrf
+
       @error('name')
       <div class="text-white text-center mt-6 -mb-6">{{ $message }}</div>
       @enderror
-      @error('comment')
+
+      @error('reply')
       <div class="text-white text-center mt-6 -mb-6">{{ $message }}</div>
       @enderror
+
       <input type="hidden" name="commentID" value="{{ $comment['id'] }}">
-      <x-input name="name" autofocus autocomplete="off"></x-input><br>
-      <x-textarea  name="reply" placeholder="今暇な人いる？"></x-textarea>
+      <x-input name="name" autofocus autocomplete="off" value="{{ old('name') }}"></x-input><br>
+      <x-textarea  name="reply" placeholder="今暇な人いる？">{{ old('reply') }}</x-textarea>
       <div class="space-x-48">
         <x-a_back class="text-white">キャンセル</x-a_back>
         <x-button class="bg-red-700 hover:bg-red-600">投稿する</x-button>
