@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Http\Requests\ReplyUpdateRequest;
+use App\Http\Requests\ResponseRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\comment;
 use App\Models\reply;
 use Illuminate\Http\Request;
@@ -21,11 +24,7 @@ class BoardController extends Controller
       ->orderBy($sort, 'desc')
       ->paginate(3);
 
-    $replies = comment::select('replies.name', 'replies.reply', 'replies.comment_id')
-      ->join('replies', 'comments.id', '=', 'replies.comment_id')
-      ->get();
-
-    return view('home', compact('comments', 'replies', 'sort'));
+    return view('home', compact('comments', 'sort'));
   }
 
   public function comment()
@@ -44,19 +43,26 @@ class BoardController extends Controller
   public function edit($id)
   {
     $comment = comment::find($id);
-    $reply = reply::find($id);
-    return view('edit', compact('comment', 'reply'));
+    return view('edit', compact('comment'));
   }
 
-  public function update(PostRequest $request)
+  public function replyedit($id)
+  {
+    $reply = reply::find($id);
+    return view('replyedit', compact('reply'));
+  }
+
+  public function update(UpdateRequest $request)
   {
     $comment = comment::find($request->commentID);
+    $comment->fill($request->all())->save();
+    return redirect()->route('home');
+  }
+
+  public function replyupdate(ReplyUpdateRequest $request)
+  {
     $reply = reply::find($request->replyID);
-    if ($comment) {
-      $comment->fill($request->all())->save();
-    } else {
-      $reply->fill($request->all())->save();
-    }
+    $reply->fill($request->all())->save();
     return redirect()->route('home');
   }
 
@@ -64,10 +70,13 @@ class BoardController extends Controller
   {
     if ($request->confirmResult === "true" && $request->commentID !== null) {
       comment::find($request->commentID)->delete();
+      return redirect()->route('home');
     } elseif ($request->confirmResult === "true" && $request->replyID !== null) {
       reply::find($request->replyID)->delete();
+      return redirect()->route('home');
+    } else {
+      return back();
     }
-    return redirect()->route('home');
   }
 
   public function reply($id)
@@ -76,9 +85,10 @@ class BoardController extends Controller
     return view('reply', compact('comment'));
   }
 
-  public function response(PostRequest $request)
+  public function response(ResponseRequest $request)
   {
     $reply = $request->only(['name', 'reply', 'comment_id']);
+    // dd($reply);
     $comment = comment::find($request->commentID);
     reply::create(['name' =>  $reply['name'], 'reply' => $reply['reply'], 'comment_id' => $comment['id']]);
 
